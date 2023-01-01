@@ -49,7 +49,6 @@ public static byte[] signPdf(String pdfUrl, String sealUrl) throws DocumentExcep
             // 在最后一页盖章
             PdfContentByte sign = stamper.getOverContent(pageCount);
             sign.addImage(sealImage);
-
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

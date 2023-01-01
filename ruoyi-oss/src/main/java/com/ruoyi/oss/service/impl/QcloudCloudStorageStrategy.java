@@ -77,12 +77,15 @@ public class QcloudCloudStorageStrategy extends AbstractCloudStorageStrategy {
     public UploadResult upload(InputStream inputStream, String path, String contentType) {
         try {
             ObjectMetadata metadata = new ObjectMetadata();
+            // 从输入流上传必须制定content length, 否则http客户端可能会缓存所有数据，存在内存OOM的情况
+            metadata.setContentLength(Integer.valueOf(inputStream.available()).longValue());
             metadata.setContentType(contentType);
             client.putObject(new PutObjectRequest(properties.getBucketName(), path, inputStream, metadata));
         } catch (Exception e) {
             throw new OssException("上传文件失败，请检查腾讯云配置信息:[" + e.getMessage() + "]");
         }
-        return new UploadResult().setUrl(getEndpointLink() + "/" + path).setFilename(path);
+        // 这个地方传入的链接依然是重复的域名加上完整路径
+         return new UploadResult().setUrl(getEndpointLink() + "/" + path).setFilename(path);
     }
 
     @Override
@@ -110,13 +113,13 @@ public class QcloudCloudStorageStrategy extends AbstractCloudStorageStrategy {
         String endpoint = properties.getEndpoint();
         StringBuilder sb = new StringBuilder(endpoint);
         //作者这个b没用过腾讯云OSS
-//		if (StringUtils.containsAnyIgnoreCase(endpoint, "http://")) {
-//			sb.insert(7, properties.getBucketName() + ".");
-//		} else if (StringUtils.containsAnyIgnoreCase(endpoint, "https://")) {
-//			sb.insert(8, properties.getBucketName() + ".");
-//		} else {
-//			throw new OssException("Endpoint配置错误");
-//		}
+        //	if (StringUtils.containsAnyIgnoreCase(endpoint, "http://")) {
+        //			sb.insert(7, properties.getBucketName() + ".");
+        //		} else if (StringUtils.containsAnyIgnoreCase(endpoint, "https://")) {
+        //			sb.insert(8, properties.getBucketName() + ".");
+        //		} else {
+        //			throw new OssException("Endpoint配置错误");
+        //		}
         return sb.toString();
     }
 }

@@ -110,7 +110,7 @@ public class HeContractServiceImpl extends ServicePlusImpl<HeContractMapper, HeC
 
     @Override
     public Boolean updateByBo(HeContractBo bo) {
-        // 修改合同的一个逻辑，就是为了保持本地和区块链同步，已经入链的合同需要出链，是否入链状态改为否
+        // 修改合同的逻辑，就是为了保持本地和区块链同步，已经入链的合同需要出链，是否入链状态改为否
         // 是否删除的状态需要改变是来提醒用户改合同因改变而被迫出链，需要重新提交审核
         // 重新提交之后是否删除状态改变为否，是否入链状态改变为是
         // 获取数据库中的数据
@@ -123,7 +123,7 @@ public class HeContractServiceImpl extends ServicePlusImpl<HeContractMapper, HeC
             !bo.getOssUrl().equals(heContractVo.getOssUrl()) ||
             !bo.getIpfsHash().equals(heContractVo.getIpfsHash()) ||
             !bo.getState().equals(heContractVo.getState());
-        //出链的另一个条件就是该合同本身是入链的
+        // 出链的另一个条件就是该合同本身是入链的
         if (isSame && heContractVo.getIsLink() == 1) {
             if ("2".equals(bo.getState()) || "3".equals(bo.getState())) {
                 bo.setState("1");
@@ -182,7 +182,7 @@ public class HeContractServiceImpl extends ServicePlusImpl<HeContractMapper, HeC
             Network network = fabricUtils.getNetwork();
             Contract contract = fabricUtils.getContract();
             ids.forEach(id -> {
-                // 获取contract
+                // 获取合同
                 HeContractVo heContractVo = queryById(id);
                 // 当合同的状态为入链状态才进行区块删除
                 if (heContractVo.getIsLink() == 1) {
