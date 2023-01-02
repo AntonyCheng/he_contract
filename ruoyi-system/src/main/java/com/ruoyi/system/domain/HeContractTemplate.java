@@ -51,12 +51,6 @@ public class HeContractTemplate implements Serializable {
     private String type;
 
     /**
-     * 是否删除
-     */
-    @TableField(fill = FieldFill.INSERT)
-    private Integer isDelete;
-
-    /**
      * 创建时间
      */
     @TableField(fill = FieldFill.INSERT)

@@ -59,7 +59,6 @@ public class HeContractTemplateServiceImpl extends ServicePlusImpl<HeContractTem
         lqw.eq(StringUtils.isNotBlank(bo.getOssUrl()), HeContractTemplate::getOssUrl, bo.getOssUrl());
         lqw.eq(StringUtils.isNotBlank(bo.getDescription()), HeContractTemplate::getDescription, bo.getDescription());
         lqw.eq(StringUtils.isNotBlank(bo.getType()), HeContractTemplate::getType, bo.getType());
-        lqw.eq(bo.getIsDelete() != null, HeContractTemplate::getIsDelete, bo.getIsDelete());
         lqw.orderByAsc(HeContractTemplate::getId);
         return lqw;
     }

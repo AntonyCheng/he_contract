@@ -59,13 +59,6 @@ public class HeContractTemplateBo extends BaseEntity {
     private String type;
 
     /**
-     * 是否删除
-     */
-    @ApiModelProperty(value = "是否删除", required = true)
-    private Integer isDelete;
-
-
-    /**
      * 分页大小
      */
     @ApiModelProperty("分页大小")

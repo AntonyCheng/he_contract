@@ -58,13 +58,4 @@ public class HeContractTemplateVo {
 	@ExcelProperty(value = "模板类别")
 	@ApiModelProperty("模板类别")
 	private String type;
-
-    /**
-     * 是否删除
-     */
-	@ExcelProperty(value = "是否删除")
-	@ApiModelProperty("是否删除")
-	private Integer isDelete;
-
-
 }
